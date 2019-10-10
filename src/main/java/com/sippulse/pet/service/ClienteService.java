@@ -1,41 +1,41 @@
 package com.sippulse.pet.service;
 
-import com.sippulse.pet.entity.Pet;
+import com.sippulse.pet.entity.Cliente;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link Pet}.
+ * Service Interface for managing {@link Cliente}.
  */
-public interface PetService {
+public interface ClienteService {
 
     /**
-     * Save a pet.
+     * Save a cliente.
      *
-     * @param pet the entity to save.
+     * @param cliente the entity to save.
      * @return the persisted entity.
      */
-    Pet save(Pet pet);
+    Cliente save(Cliente cliente);
 
     /**
-     * Get all the pets.
+     * Get all the clientes.
      *
      * @return the list of entities.
      */
-    List<Pet> findAll();
+    List<Cliente> findAll();
 
 
     /**
-     * Get the "id" pet.
+     * Get the "id" cliente.
      *
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Pet> findOne(Long id);
+    Optional<Cliente> findOne(Long id);
 
     /**
-     * Delete the "id" pet.
+     * Delete the "id" cliente.
      *
      * @param id the id of the entity.
      */
