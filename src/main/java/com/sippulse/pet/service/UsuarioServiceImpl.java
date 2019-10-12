@@ -4,11 +4,11 @@ import com.sippulse.pet.entity.Usuario;
 import com.sippulse.pet.repository.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Usuario}.
@@ -21,6 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
+    @Autowired
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -58,9 +59,9 @@ public class UsuarioServiceImpl implements UsuarioService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Usuario> findOne(Long id) {
+    public Usuario findOne(Long id) {
         log.debug("Request to get Usuario : {}", id);
-        return usuarioRepository.findById(id);
+        return usuarioRepository.findOne(id);
     }
 
     /**
@@ -71,6 +72,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Usuario : {}", id);
-        usuarioRepository.deleteById(id);
+        usuarioRepository.delete(id);
     }
 }

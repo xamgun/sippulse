@@ -3,7 +3,6 @@ package com.sippulse.pet.service;
 import com.sippulse.pet.entity.Agendamento;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing {@link Agendamento}.
@@ -32,7 +31,7 @@ public interface AgendamentoService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Agendamento> findOne(Long id);
+    Agendamento findOneById(Long id);
 
     /**
      * Delete the "id" agendamento.
@@ -40,4 +39,5 @@ public interface AgendamentoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }

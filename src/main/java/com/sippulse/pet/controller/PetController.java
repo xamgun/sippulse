@@ -1,23 +1,21 @@
 package com.sippulse.pet.controller;
 
+import com.sippulse.pet.HeaderUtil;
 import com.sippulse.pet.entity.Pet;
 import com.sippulse.pet.service.PetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 /**
- * REST controller for managing {@link com.maxguntzel.petjhipster.domain.Pet}.
+ * REST controller for managing {@link com.sippulse.pet.entity.Pet}.
  */
 @RestController
 @RequestMapping("/api")
@@ -27,11 +25,13 @@ public class PetController {
 
     private static final String ENTITY_NAME = "pet";
 
-    @Value("${clientApp.name}")
+    @Value("Pet")
     private String applicationName;
 
+    @Autowired
     private final PetService petService;
 
+    @Autowired
     public PetController(PetService petService) {
         this.petService = petService;
     }
@@ -43,11 +43,11 @@ public class PetController {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new pet, or with status {@code 400 (Bad Request)} if the pet has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/pets")
+    @RequestMapping(value = "/pets", method = RequestMethod.POST)
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) throws URISyntaxException {
         log.debug("REST request to save Pet : {}" + pet);
         if (pet.getId() != null) {
-            throw new BadRequestAlertException("A new pet cannot already have an ID", ENTITY_NAME, "idexists");
+            ResponseEntity.badRequest().build();
         }
         Pet result = petService.save(pet);
         return ResponseEntity.created(new URI("/api/pets/" + result.getId()))
@@ -64,11 +64,11 @@ public class PetController {
      * or with status {@code 500 (Internal Server Error)} if the pet couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/pets")
+    @RequestMapping(value = "/pets", method = RequestMethod.PUT)
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) throws URISyntaxException {
         log.debug("REST request to update Pet : {}" + pet);
         if (pet.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            ResponseEntity.badRequest().build();
         }
         Pet result = petService.save(pet);
         return ResponseEntity.ok()
@@ -82,7 +82,7 @@ public class PetController {
 
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of pets in body.
      */
-    @GetMapping("/pets")
+    @RequestMapping(value = "/pets", method = RequestMethod.GET)
     public List<Pet> getAllPets() {
         log.debug("REST request to get all Pets");
         return petService.findAll();
@@ -94,11 +94,11 @@ public class PetController {
      * @param id the id of the pet to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the pet, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/pets/{id}")
+    @RequestMapping(value = "/pets/{id}", method = RequestMethod.GET)
     public ResponseEntity<Pet> getPet(@PathVariable Long id) {
         log.debug("REST request to get Pet : {}", id);
-        Optional<Pet> pet = petService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(pet);
+        Pet pet = petService.findOne(id);
+        return ResponseEntity.ok(pet);
     }
 
     /**
@@ -107,7 +107,7 @@ public class PetController {
      * @param id the id of the pet to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/pets/{id}")
+    @RequestMapping(value = "/pets/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePet(@PathVariable Long id) {
         log.debug("REST request to delete Pet : {}", id);
         petService.delete(id);

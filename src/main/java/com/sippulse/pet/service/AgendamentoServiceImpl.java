@@ -4,11 +4,11 @@ import com.sippulse.pet.entity.Agendamento;
 import com.sippulse.pet.repository.AgendamentoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Agendamento}.
@@ -19,8 +19,10 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
     private final Logger log = LoggerFactory.getLogger(AgendamentoServiceImpl.class);
 
+    @Autowired
     private final AgendamentoRepository agendamentoRepository;
 
+    @Autowired
     public AgendamentoServiceImpl(AgendamentoRepository agendamentoRepository) {
         this.agendamentoRepository = agendamentoRepository;
     }
@@ -51,19 +53,6 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
 
     /**
-     * Get one agendamento by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<Agendamento> findOne(Long id) {
-        log.debug("Request to get Agendamento : {}", id);
-        return agendamentoRepository.findAllById(id);
-    }
-
-    /**
      * Delete the agendamento by id.
      *
      * @param id the id of the entity.
@@ -71,6 +60,18 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Agendamento : {}", id);
-        agendamentoRepository.deleteById(id);
+        agendamentoRepository.delete(id);
+    }
+
+    /**
+     * Get one agendamento by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Agendamento findOneById(Long id){
+        return agendamentoRepository.findOne(id);
     }
 }

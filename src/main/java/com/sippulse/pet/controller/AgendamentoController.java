@@ -4,6 +4,7 @@ import com.sippulse.pet.entity.Agendamento;
 import com.sippulse.pet.service.AgendamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.sippulse.pet.HeaderUtil;
@@ -11,7 +12,6 @@ import com.sippulse.pet.HeaderUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing {@link com.sippulse.pet.entity.Agendamento}.
@@ -26,11 +26,14 @@ public class AgendamentoController {
 
     private static final String ENTITY_NAME = "agendamento";
 
+    @Autowired
     private final AgendamentoService agendamentoService;
-
+    
+    @Autowired
     public AgendamentoController(AgendamentoService agendamentoService) {
         this.agendamentoService = agendamentoService;
     }
+
 
     /**
      * {@code POST  /agendamentos} : Create a new agendamento.
@@ -44,8 +47,8 @@ public class AgendamentoController {
         log.debug("REST request to save Agendamento : {}", agendamento);
         Agendamento result = agendamentoService.save(agendamento);
         return ResponseEntity.created(new URI("/api/agendamentos/" + result.getId()))
-            .headers(applicationName, false, ENTITY_NAME, + agendamento.getId().toString()).body(
-                );
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, agendamento.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -72,7 +75,7 @@ public class AgendamentoController {
 
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of agendamentos in body.
      */
-    @GetMapping("/agendamentos")
+    @RequestMapping(value="/agendamentos", method = RequestMethod.GET)
     public List<Agendamento> getAllAgendamentos() {
         log.debug("REST request to get all Agendamentos");
         return agendamentoService.findAll();
@@ -84,11 +87,11 @@ public class AgendamentoController {
      * @param id the id of the agendamento to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the agendamento, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/agendamentos/{id}")
+    @RequestMapping(value="/agendamentos/{id}", method = RequestMethod.GET)
     public ResponseEntity<Agendamento> getAgendamento(@PathVariable Long id) {
         log.debug("REST request to get Agendamento : {}", id);
-        Optional<Agendamento> agendamento = agendamentoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(agendamento);
+        Agendamento agendamento = agendamentoService.findOneById(id);
+        return ResponseEntity.ok(agendamento);
     }
 
     /**
@@ -97,7 +100,7 @@ public class AgendamentoController {
      * @param id the id of the agendamento to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/agendamentos/{id}")
+    @RequestMapping(value="/agendamentos/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteAgendamento(@PathVariable Long id) {
         log.debug("REST request to delete Agendamento : {}", id);
         agendamentoService.delete(id);

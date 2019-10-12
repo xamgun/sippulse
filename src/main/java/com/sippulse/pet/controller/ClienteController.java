@@ -1,23 +1,18 @@
 package com.sippulse.pet.controller;
 
-import com.maxguntzel.petjhipster.domain.Cliente;
-import com.maxguntzel.petjhipster.service.ClienteService;
-import com.maxguntzel.petjhipster.web.rest.errors.BadRequestAlertException;
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.sippulse.pet.HeaderUtil;
+import com.sippulse.pet.entity.Cliente;
+import com.sippulse.pet.service.ClienteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing {@link com.maxguntzel.petjhipster.domain.Cliente}.
@@ -30,11 +25,13 @@ public class ClienteController {
 
     private static final String ENTITY_NAME = "cliente";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("Pet")
     private String applicationName;
 
+    @Autowired
     private final ClienteService clienteService;
 
+    @Autowired
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
@@ -46,11 +43,11 @@ public class ClienteController {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new cliente, or with status {@code 400 (Bad Request)} if the cliente has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/clientes")
+    @RequestMapping(value = "/clientes", method = RequestMethod.POST)
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) throws URISyntaxException {
         log.debug("REST request to save Cliente : {}", cliente);
         if (cliente.getId() != null) {
-            throw new BadRequestAlertException("A new cliente cannot already have an ID", ENTITY_NAME, "idexists");
+            ResponseEntity.badRequest().build();
         }
         Cliente result = clienteService.save(cliente);
         return ResponseEntity.created(new URI("/api/clientes/" + result.getId()))
@@ -67,11 +64,11 @@ public class ClienteController {
      * or with status {@code 500 (Internal Server Error)} if the cliente couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/clientes")
+    @RequestMapping(value = "/clientes", method = RequestMethod.PUT)
     public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente) throws URISyntaxException {
         log.debug("REST request to update Cliente : {}", cliente);
         if (cliente.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            ResponseEntity.badRequest().build();
         }
         Cliente result = clienteService.save(cliente);
         return ResponseEntity.ok()
@@ -85,7 +82,7 @@ public class ClienteController {
 
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
      */
-    @GetMapping("/clientes")
+    @RequestMapping(value = "/clientes", method = RequestMethod.GET)
     public List<Cliente> getAllClientes() {
         log.debug("REST request to get all Clientes");
         return clienteService.findAll();
@@ -97,11 +94,11 @@ public class ClienteController {
      * @param id the id of the cliente to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cliente, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/clientes/{id}")
+    @RequestMapping (value = "/clientes/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> getCliente(@PathVariable Long id) {
         log.debug("REST request to get Cliente : {}", id);
-        Optional<Cliente> cliente = clienteService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(cliente);
+        Cliente cliente = clienteService.findOne(id);
+        return ResponseEntity.ok(cliente);
     }
 
     /**
@@ -110,7 +107,7 @@ public class ClienteController {
      * @param id the id of the cliente to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/clientes/{id}")
+    @RequestMapping (value = "/clientes/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         log.debug("REST request to delete Cliente : {}", id);
         clienteService.delete(id);

@@ -27,7 +27,6 @@ public class Usuario implements Serializable {
     @Column(name = "usuario_tipo")
     private UsuarioTipo usuarioTipo;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }

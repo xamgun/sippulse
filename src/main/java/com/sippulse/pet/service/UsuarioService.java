@@ -3,7 +3,6 @@ package com.sippulse.pet.service;
 import com.sippulse.pet.entity.Usuario;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing {@link Usuario}.
@@ -32,7 +31,7 @@ public interface UsuarioService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Usuario> findOne(Long id);
+    Usuario findOne(Long id);
 
     /**
      * Delete the "id" usuario.

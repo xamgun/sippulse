@@ -1,14 +1,14 @@
 package com.sippulse.pet.service;
 
-import com.maxguntzel.petjhipster.domain.Cliente;
-import com.maxguntzel.petjhipster.repository.ClienteRepository;
+import com.sippulse.pet.repository.ClienteRepository;
+import com.sippulse.pet.entity.Cliente;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Cliente}.
@@ -19,8 +19,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final Logger log = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
+    @Autowired
     private final ClienteRepository clienteRepository;
 
+    @Autowired
     public ClienteServiceImpl(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
@@ -58,9 +60,10 @@ public class ClienteServiceImpl implements ClienteService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Cliente> findOne(Long id) {
+    public Cliente findOne(Long id) {
+
         log.debug("Request to get Cliente : {}", id);
-        return clienteRepository.findById(id);
+        return clienteRepository.findOne(id);
     }
 
     /**
@@ -71,6 +74,6 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Cliente : {}", id);
-        clienteRepository.deleteById(id);
+        clienteRepository.delete(id);
     }
 }

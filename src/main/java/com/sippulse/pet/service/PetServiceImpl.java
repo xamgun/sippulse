@@ -4,11 +4,11 @@ import com.sippulse.pet.entity.Pet;
 import com.sippulse.pet.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Pet}.
@@ -21,6 +21,7 @@ public class PetServiceImpl implements PetService {
 
     private final PetRepository petRepository;
 
+    @Autowired
     public PetServiceImpl(PetRepository petRepository) {
         this.petRepository = petRepository;
     }
@@ -58,9 +59,9 @@ public class PetServiceImpl implements PetService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Pet> findOne(Long id) {
+    public Pet findOne(Long id) {
         log.debug("Request to get Pet : {}", id);
-        return petRepository.findById(id);
+        return petRepository.findOne(id);
     }
 
     /**
@@ -71,6 +72,6 @@ public class PetServiceImpl implements PetService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Pet : {}", id);
-        petRepository.deleteById(id);
+        petRepository.delete(id);
     }
 }
