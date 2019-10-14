@@ -1,10 +1,12 @@
 package com.sippulse.pet.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
 
 /**
  * A Agendamento.
@@ -20,7 +22,8 @@ public class Agendamento implements Serializable {
     private Long id;
 
     @Column(name = "data")
-    private Instant data;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date data;
 
     @ManyToOne
     @JsonIgnoreProperties("agendamentos")
@@ -43,16 +46,16 @@ public class Agendamento implements Serializable {
         this.id = id;
     }
 
-    public Instant getData() {
+    public Date getData() {
         return data;
     }
 
-    public Agendamento data(Instant data) {
+    public Agendamento data(Date data) {
         this.data = data;
         return this;
     }
 
-    public void setData(Instant data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * REST controller for managing {@link com.sippulse.pet.entity.Usuario}.
+ * REST controller para cadastrar, pesquisar e atualizar usuarios {@link com.sippulse.pet.entity.Usuario}.
  */
 @RestController
 @RequestMapping("/api")
@@ -38,11 +38,12 @@ public class UsuarioController {
     }
 
     /**
-     * {@code POST  /usuarios} : Create a new usuario.
+     * {@code POST  /usuarios} : Cria um novo usuario.
      *
-     * @param usuario the usuario to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new usuario, or with status {@code 400 (Bad Request)} if the usuario has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param usuario o usuario que será criado.
+     * @return o {@link ResponseEntity} com status {@code 201 (Created)} e com os dados do novo usuario no corpo da resposta,
+     * ou com status {@code 400 (Bad Request)} se o usuario com este id já existir.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
     @RequestMapping(value = "/usuarios", method = RequestMethod.POST)
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) throws URISyntaxException {
@@ -52,20 +53,20 @@ public class UsuarioController {
         }
         Usuario result = usuarioService.save(usuario);
         return ResponseEntity.created(new URI("/api/usuarios/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * {@code PUT  /usuarios} : Updates an existing usuario.
+     * {@code PUT  /usuarios} : Atualiza um usuário existente.
      *
-     * @param usuario the usuario to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated usuario,
-     * or with status {@code 400 (Bad Request)} if the usuario is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the usuario couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param usuario o usuario que será atualizado.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e com os dados do usuario no corpo da reposta,
+     * ou com status {@code 400 (Bad Request)} se o usuario for unválido,
+     * ou com status {@code 500 (Internal Server Error)} se o usuario não puder ser atualizado.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
-    @RequestMapping (value = "/usuarios", method = RequestMethod.PUT)
+    @RequestMapping(value = "/usuarios", method = RequestMethod.PUT)
     public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) throws URISyntaxException {
         log.debug("REST request to update Usuario : {}", usuario);
         if (usuario.getId() == null) {
@@ -73,15 +74,14 @@ public class UsuarioController {
         }
         Usuario result = usuarioService.save(usuario);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, usuario.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, usuario.getId().toString()))
+                .body(result);
     }
 
     /**
-     * {@code GET  /usuarios} : get all the usuarios.
+     * {@code GET  /usuarios} : retorna todos os usuarios.
      *
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of usuarios in body.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e a lista dos usuarios no corpo da resposta.
      */
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public List<Usuario> getAllUsuarios() {
@@ -90,10 +90,11 @@ public class UsuarioController {
     }
 
     /**
-     * {@code GET  /usuarios/:id} : get the "id" usuario.
+     * {@code GET  /usuarios/:id} : retorna um usuario pelo id.
      *
-     * @param id the id of the usuario to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the usuario, or with status {@code 404 (Not Found)}.
+     * @param id o id do usuario requisitado.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} com os dados do usuario no corpo da resposta,
+     * ou com status {@code 404 (Not Found)}.
      */
     @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
     public ResponseEntity<Usuario> getUsuario(@PathVariable Long id) {
@@ -103,10 +104,10 @@ public class UsuarioController {
     }
 
     /**
-     * {@code DELETE  /usuarios/:id} : delete the "id" usuario.
+     * {@code DELETE  /usuarios/:id} : deleta um usuario pelo id.
      *
-     * @param id the id of the usuario to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @param id o id do usuario a ser deletado.
+     * @return o {@link ResponseEntity} com status {@code 204 (NO_CONTENT)}.
      */
     @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {

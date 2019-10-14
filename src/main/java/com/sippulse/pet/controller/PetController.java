@@ -2,6 +2,7 @@ package com.sippulse.pet.controller;
 
 import com.sippulse.pet.HeaderUtil;
 import com.sippulse.pet.entity.Pet;
+import com.sippulse.pet.service.ClienteService;
 import com.sippulse.pet.service.PetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 /**
- * REST controller for managing {@link com.sippulse.pet.entity.Pet}.
+ * REST controller para cadastrar, pesquisar e atualizar pets {@link com.sippulse.pet.entity.Pet}.
  */
 @RestController
 @RequestMapping("/api")
@@ -29,6 +30,9 @@ public class PetController {
     private String applicationName;
 
     @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
     private final PetService petService;
 
     @Autowired
@@ -37,11 +41,12 @@ public class PetController {
     }
 
     /**
-     * {@code POST  /pets} : Create a new pet.
+     * {@code POST  /pets} : Cria um novo pet.
      *
-     * @param pet the pet to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new pet, or with status {@code 400 (Bad Request)} if the pet has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param pet para criar um pet.
+     * @return o {@link ResponseEntity} com status {@code 201 (Created)} e com os dados do pet criado no corpo da resposta,
+     * ou com status {@code 400 (Bad Request)} se um pet com este id já existir.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
     @RequestMapping(value = "/pets", method = RequestMethod.POST)
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) throws URISyntaxException {
@@ -56,13 +61,13 @@ public class PetController {
     }
 
     /**
-     * {@code PUT  /pets} : Updates an existing pet.
+     * {@code PUT  /pets} : Atualiza um pet existente.
      *
-     * @param pet the pet to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated pet,
-     * or with status {@code 400 (Bad Request)} if the pet is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the pet couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param pet o pet que será atualizado.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e com os dados do pet atualizado,
+     * ou com status {@code 400 (Bad Request)} se o pet for inválido,
+     * ou com status {@code 500 (Internal Server Error)} se o pet não puder ser atualizado.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
     @RequestMapping(value = "/pets", method = RequestMethod.PUT)
     public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) throws URISyntaxException {
@@ -77,10 +82,9 @@ public class PetController {
     }
 
     /**
-     * {@code GET  /pets} : get all the pets.
+     * {@code GET  /pets} : retorna todos os pets.
      *
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of pets in body.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e com a lista dos pets no corpo da resposta.
      */
     @RequestMapping(value = "/pets", method = RequestMethod.GET)
     public List<Pet> getAllPets() {
@@ -89,10 +93,11 @@ public class PetController {
     }
 
     /**
-     * {@code GET  /pets/:id} : get the "id" pet.
+     * {@code GET  /pets/:id} : retorna um pet pelo id.
      *
-     * @param id the id of the pet to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the pet, or with status {@code 404 (Not Found)}.
+     * @param id o id do pet requisitado.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e com os dados do pet no corpo da resposta,
+     * ou com status {@code 404 (Not Found)}.
      */
     @RequestMapping(value = "/pets/{id}", method = RequestMethod.GET)
     public ResponseEntity<Pet> getPet(@PathVariable Long id) {
@@ -102,10 +107,10 @@ public class PetController {
     }
 
     /**
-     * {@code DELETE  /pets/:id} : delete the "id" pet.
+     * {@code DELETE  /pets/:id} : deleta um pet pelo id.
      *
-     * @param id the id of the pet to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @param id o id do pet que será deletado.
+     * @return o {@link ResponseEntity} com status {@code 204 (NO_CONTENT)}.
      */
     @RequestMapping(value = "/pets/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePet(@PathVariable Long id) {

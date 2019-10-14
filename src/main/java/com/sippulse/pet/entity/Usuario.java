@@ -1,8 +1,10 @@
 package com.sippulse.pet.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
 /**
  * A Usuario.
@@ -18,7 +20,8 @@ public class Usuario implements Serializable {
     private Long id;
 
     @Column(name = "data_cadastro")
-    private Instant dataCadastro;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date dataCadastro;
 
     @Column(name = "nome")
     private String nome;
@@ -35,16 +38,16 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Instant getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public Usuario dataCadastro(Instant dataCadastro) {
+    public Usuario dataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
         return this;
     }
 
-    public void setDataCadastro(Instant dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 

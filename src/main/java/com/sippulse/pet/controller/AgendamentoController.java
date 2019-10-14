@@ -14,7 +14,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 /**
- * REST controller for managing {@link com.sippulse.pet.entity.Agendamento}.
+ * REST controller para cadastrar, pesquisar e atualizar agendamentos de
+ * consultas {@link com.sippulse.pet.entity.Agendamento}.
  */
 @RestController
 @RequestMapping("/api")
@@ -36,11 +37,12 @@ public class AgendamentoController {
 
 
     /**
-     * {@code POST  /agendamentos} : Create a new agendamento.
+     * {@code POST  /agendamentos} : Cria novo agendamento.
      *
-     * @param agendamento the agendamento to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new agendamento, or with status {@code 400 (Bad Request)} if the agendamento has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param agendamento para criar agendamento.
+     * @return the {@link ResponseEntity} com status {@code 201 (Created)} e com os dados do novo agendamento,
+     * ou status {@code 400 (Bad Request)} se agendamento com este ID já existir.
+     * @throws URISyntaxException se URI syntax estiver incorreta.
      */
     @RequestMapping(value ="/agendamentos", method = RequestMethod.POST)
     public ResponseEntity<Agendamento> createAgendamento(@RequestBody Agendamento agendamento) throws URISyntaxException {
@@ -52,13 +54,13 @@ public class AgendamentoController {
     }
 
     /**
-     * {@code PUT  /agendamentos} : Updates an existing agendamento.
+     * {@code PUT  /agendamentos} : Atualiza um agendamento existente.
      *
-     * @param agendamento the agendamento to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated agendamento,
-     * or with status {@code 400 (Bad Request)} if the agendamento is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the agendamento couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param agendamento para atualizar agendamento.
+     * @return {@link ResponseEntity} com status {@code 200 (OK)} e com os dados do novo agendamento,
+     * ou status {@code 400 (Bad Request)} se o agendamento não for válido,
+     * ou status {@code 500 (Internal Server Error)} se a atualização do agendamento não for possível.
+     * @throws URISyntaxException se URI syntax estiver incorreta.
      */
     @RequestMapping(value="/agendamentos", method = RequestMethod.PUT)
     public ResponseEntity<Agendamento> updateAgendamento(@RequestBody Agendamento agendamento) throws URISyntaxException {
@@ -70,10 +72,9 @@ public class AgendamentoController {
     }
 
     /**
-     * {@code GET  /agendamentos} : get all the agendamentos.
+     * {@code GET  /agendamentos} : retorna todos agendamentos.
      *
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of agendamentos in body.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} com a listade agendamentos no corpo da resposta.
      */
     @RequestMapping(value="/agendamentos", method = RequestMethod.GET)
     public List<Agendamento> getAllAgendamentos() {
@@ -82,10 +83,10 @@ public class AgendamentoController {
     }
 
     /**
-     * {@code GET  /agendamentos/:id} : get the "id" agendamento.
+     * {@code GET  /agendamentos/:id} : retorna um agendamento pelo id.
      *
-     * @param id the id of the agendamento to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the agendamento, or with status {@code 404 (Not Found)}.
+     * @param id o id do agendamento requerido.
+     * @return  {@link ResponseEntity} com status {@code 200 (OK)} com os dados do agendamento, ou status {@code 404 (Not Found)}.
      */
     @RequestMapping(value="/agendamentos/{id}", method = RequestMethod.GET)
     public ResponseEntity<Agendamento> getAgendamento(@PathVariable Long id) {
@@ -95,10 +96,10 @@ public class AgendamentoController {
     }
 
     /**
-     * {@code DELETE  /agendamentos/:id} : delete the "id" agendamento.
+     * {@code DELETE  /agendamentos/:id} : deleta agendamento pelo id passado.
      *
-     * @param id the id of the agendamento to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @param id o id do agendamento para ser deletado.
+     * @return o {@link ResponseEntity} com status {@code 204 (NO_CONTENT)}.
      */
     @RequestMapping(value="/agendamentos/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteAgendamento(@PathVariable Long id) {

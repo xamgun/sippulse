@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 /**
- * REST controller for managing {@link com.maxguntzel.petjhipster.domain.Cliente}.
+ * REST controller para cadastrar, pesquisar e atualizar {@link com.sippulse.pet.entity.Cliente}.
  */
 @RestController
 @RequestMapping("/api")
@@ -37,11 +37,12 @@ public class ClienteController {
     }
 
     /**
-     * {@code POST  /clientes} : Create a new cliente.
+     * {@code POST  /clientes} : Cria novo cliente.
      *
-     * @param cliente the cliente to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new cliente, or with status {@code 400 (Bad Request)} if the cliente has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param cliente o cliente a ser criado.
+     * @return o {@link ResponseEntity} com status {@code 201 (Created)} e com os dados do novo cliente,
+     * ou com status {@code 400 (Bad Request)} se o cliente com ID já existir.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
     @RequestMapping(value = "/clientes", method = RequestMethod.POST)
     public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) throws URISyntaxException {
@@ -56,13 +57,13 @@ public class ClienteController {
     }
 
     /**
-     * {@code PUT  /clientes} : Updates an existing cliente.
+     * {@code PUT  /clientes} : Atualiza um cliente existente.
      *
-     * @param cliente the cliente to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated cliente,
-     * or with status {@code 400 (Bad Request)} if the cliente is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the cliente couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param cliente o cliente que será atualizado.
+     * @return the {@link ResponseEntity} com status {@code 200 (OK)} e com os dados atualizados do cliente,
+     * ou status {@code 400 (Bad Request)} se o cliente for inválido,
+     * ou status {@code 500 (Internal Server Error)} se o cliente não puder ser atualizado.
+     * @throws URISyntaxException se a syntax URI estiver incorreta.
      */
     @RequestMapping(value = "/clientes", method = RequestMethod.PUT)
     public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente) throws URISyntaxException {
@@ -77,10 +78,9 @@ public class ClienteController {
     }
 
     /**
-     * {@code GET  /clientes} : get all the clientes.
+     * {@code GET  /clientes} : retorna todos os clientes.
      *
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} e alista dos clientes no corpo do retorno.
      */
     @RequestMapping(value = "/clientes", method = RequestMethod.GET)
     public List<Cliente> getAllClientes() {
@@ -89,10 +89,11 @@ public class ClienteController {
     }
 
     /**
-     * {@code GET  /clientes/:id} : get the "id" cliente.
+     * {@code GET  /clientes/:id} : retorna cliente pelo id.
      *
-     * @param id the id of the cliente to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the cliente, or with status {@code 404 (Not Found)}.
+     * @param id o id do cliente requisitado.
+     * @return o {@link ResponseEntity} com status {@code 200 (OK)} com os dados do cliente no corpo da resposta,
+     * ou com status {@code 404 (Not Found)}.
      */
     @RequestMapping (value = "/clientes/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> getCliente(@PathVariable Long id) {
@@ -102,10 +103,10 @@ public class ClienteController {
     }
 
     /**
-     * {@code DELETE  /clientes/:id} : delete the "id" cliente.
+     * {@code DELETE  /clientes/:id} : deleta um cliente pelo id.
      *
-     * @param id the id of the cliente to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @param id o id do cliente a ser deletetado.
+     * @return o {@link ResponseEntity} com status {@code 204 (NO_CONTENT)}.
      */
     @RequestMapping (value = "/clientes/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
