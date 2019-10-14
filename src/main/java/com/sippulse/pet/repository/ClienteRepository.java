@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 /**
- * Spring Data  repository for the Cliente entity.
+ * Spring Data  repository para a entidade Cliente.
  */
 @SuppressWarnings("unused")
 @Repository

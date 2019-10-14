@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data  repository for the Pet entity.
+ * Spring Data  repository para a entidade Pet.
  */
 @SuppressWarnings("unused")
 @Repository

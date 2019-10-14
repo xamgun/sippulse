@@ -5,11 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 
 /**
- * A Agendamento.
+ * Agendamento.
  */
 @Entity
 @Table(name = "agendamento")
@@ -37,7 +36,6 @@ public class Agendamento implements Serializable {
     @JoinColumn(unique = true)
     private Usuario usuario;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -97,7 +95,6 @@ public class Agendamento implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

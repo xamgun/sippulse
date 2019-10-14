@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data  repository for the Usuario entity.
+ * Spring Data  repository para a entidade Usuario.
  */
 @SuppressWarnings("unused")
 @Repository

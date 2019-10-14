@@ -5,12 +5,12 @@ import com.sippulse.pet.entity.Agendamento;
 import java.util.List;
 
 /**
- * Service Interface for managing {@link Agendamento}.
+ * Service Interface para gerenciar {@link Agendamento}.
  */
 public interface AgendamentoService {
 
     /**
-     * Save a agendamento.
+     * Salva agendamento.
      *
      * @param agendamento the entity to save.
      * @return the persisted entity.

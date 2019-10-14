@@ -1,8 +1,6 @@
 package com.sippulse.pet.service;
 
-import com.sippulse.pet.entity.Cliente;
 import com.sippulse.pet.entity.Pet;
-import com.sippulse.pet.repository.ClienteRepository;
 import com.sippulse.pet.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

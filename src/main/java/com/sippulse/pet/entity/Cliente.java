@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The Employee entity.
+ * Cliente
  */
 @Entity
 @Table(name = "cliente")
@@ -20,9 +20,7 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * The firstname attribute.
-     */
+
     @Column(name = "nome")
     private String nome;
 

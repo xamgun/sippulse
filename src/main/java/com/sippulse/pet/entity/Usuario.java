@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * A Usuario.
+ * Usuario.
  */
 @Entity
 @Table(name = "usuario")

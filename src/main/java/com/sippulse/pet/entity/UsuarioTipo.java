@@ -1,7 +1,7 @@
 package com.sippulse.pet.entity;
 
 /**
- * The UsuarioTipo enumeration.
+ * UsuarioTipo enumeration.
  */
 public enum UsuarioTipo {
     FUNCIONARIO, VETERINARIO

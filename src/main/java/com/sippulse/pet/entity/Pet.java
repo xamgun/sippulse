@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * A Pet.
+ * Pet.
  */
 @Entity
 @Table(name = "pet")
