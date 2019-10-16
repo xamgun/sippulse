@@ -33,6 +33,9 @@ public class Cliente implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
+    @Column(name = "cpf")
+    private String cpf;
+
     @OneToMany(mappedBy = "cliente")
     private Set<Agendamento> consultas = new HashSet<>();
 
@@ -97,6 +100,14 @@ public class Cliente implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public Set<Agendamento> getConsultas() {
@@ -173,6 +184,7 @@ public class Cliente implements Serializable {
             ", email='" + getEmail() + "'" +
             ", endereco='" + getEndereco() + "'" +
             ", telefone='" + getTelefone() + "'" +
+                ", cpf='" + getCpf() + "'" +
             "}";
     }
 }
