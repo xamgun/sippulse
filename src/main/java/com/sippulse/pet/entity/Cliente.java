@@ -37,7 +37,7 @@ public class Cliente implements Serializable {
     private String cpf;
 
     @OneToMany(mappedBy = "cliente")
-    private Set<Agendamento> consultas = new HashSet<>();
+    private Set<Agendamento> agendamentos = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
     private Set<Pet> pets = new HashSet<>();
@@ -110,29 +110,29 @@ public class Cliente implements Serializable {
         this.cpf = cpf;
     }
 
-    public Set<Agendamento> getConsultas() {
-        return consultas;
+    public Set<Agendamento> getAgendamentos() {
+        return agendamentos;
     }
 
-    public Cliente consultas(Set<Agendamento> agendamentos) {
-        this.consultas = agendamentos;
+    public Cliente agendamentos(Set<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
         return this;
     }
 
-    public Cliente addConsulta(Agendamento agendamento) {
-        this.consultas.add(agendamento);
+    public Cliente addAgendamento(Agendamento agendamento) {
+        this.agendamentos.add(agendamento);
         agendamento.setCliente(this);
         return this;
     }
 
-    public Cliente removeConsulta(Agendamento agendamento) {
-        this.consultas.remove(agendamento);
+    public Cliente removeAgendamento(Agendamento agendamento) {
+        this.agendamentos.remove(agendamento);
         agendamento.setCliente(null);
         return this;
     }
 
-    public void setConsultas(Set<Agendamento> agendamentos) {
-        this.consultas = agendamentos;
+    public void setAgendamentos(Set<Agendamento> agendamentos) {
+        this.agendamentos = agendamentos;
     }
 
     public Set<Pet> getPets() {
