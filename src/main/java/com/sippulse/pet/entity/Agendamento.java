@@ -1,6 +1,7 @@
 package com.sippulse.pet.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Agendamento implements Serializable {
     private Date data;
 
     @ManyToOne
+    @JsonIgnore
     @JsonIgnoreProperties("agendamentos")
     private Cliente cliente;
 
